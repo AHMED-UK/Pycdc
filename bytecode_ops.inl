@@ -130,6 +130,10 @@ OPCODE_A(DELETE_NAME)                   // Python 1.0 ->                names[A]
 OPCODE_A(UNPACK_TUPLE)                  // Python 1.0 - 1.6             A=count
 OPCODE_A(UNPACK_LIST)                   // Python 1.0 - 1.6             A=count
 OPCODE_A(UNPACK_ARG)                    // Python 1.0 - 1.4             A=count
+OPCODE_A(CALL_NO_KW)
+OPCODE_A(CALL_NO_KW_METHOD)
+OPCODE_A(CALL_KW_METHOD)
+
 OPCODE_A(STORE_ATTR)                    // Python 1.0 ->                names[A]
 OPCODE_A(DELETE_ATTR)                   // Python 1.0 ->                names[A]
 OPCODE_A(STORE_GLOBAL)                  // Python 1.0 ->                names[A]
@@ -271,9 +275,6 @@ OPCODE_A(STORE_FAST_LOAD_FAST)          // Python 3.13 ->               A=locals
 OPCODE_A(STORE_FAST_STORE_FAST)         // Python 3.13 ->               A=locals[A<<4]+locals[A&0xf]
 
 /* Instrumented opcodes */
-OPCODE_A(INSTRUMENTED_LOAD_SUPER_ATTR)      // Python 3.12 ->           (see LOAD_SUPER_ATTR)
-OPCODE_A(INSTRUMENTED_POP_JUMP_IF_NONE)     // Python 3.12 ->           (see POP_JUMP_IF_NONE)
-OPCODE_A(INSTRUMENTED_POP_JUMP_IF_NOT_NONE) // Python 3.12 ->           (see POP_JUMP_IF_NOT_NONE)
 OPCODE_A(INSTRUMENTED_RESUME)               // Python 3.12 ->           (see RESUME)
 OPCODE_A(INSTRUMENTED_CALL)                 // Python 3.12 ->           (see CALL)
 OPCODE_A(INSTRUMENTED_RETURN_VALUE)         // Python 3.12 ->           (see RETURN_VALUE)
