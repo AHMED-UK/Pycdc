@@ -10,28 +10,32 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Configure and build both Debug and Release
-      - name: Configure and Build (Debug & Release)
-        run: |
-          mkdir build
-          cd build
-          cmake -G "Visual Studio 17 2022" -A Win32 ..
-          cmake --build . --config Debug
-          cmake --build . --config Release
+      - name: Create Build Directory
+        run: mkdir build
 
-      # Run tests (supports both RUN_TESTS and check targets)
-      - name: Run Tests (Debug & Release)
+      - name: Configure CMake
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A Win32
+
+      - name: Build Debug
+        run: cmake --build build --config Debug
+
+      - name: Build Release
+        run: cmake --build build --config Release
+
+      - name: Run Tests (Debug)
         run: |
           cmake --build build --config Debug --target RUN_TESTS || cmake --build build --config Debug --target check
+
+      - name: Run Tests (Release)
+        run: |
           cmake --build build --config Release --target RUN_TESTS || cmake --build build --config Release --target check
 
-      # Upload Release .exe artifacts
       - name: Upload Release Executables
-        uses: actions/upload-artifact@3.1.3
+        uses: actions/upload-artifact@v3
         with:
           name: pycdc-release
           path: build\Release\*.exe
+          
